@@ -1,3 +1,7 @@
+Just a copy of this awesome project, where a couple of build flags has has been added.
+
+----------------------------------------
+
 ## Knutwurst's i3 MEGA M/S/P/X/Chiron/4MP2 Hybrid Firmware <br>(based on Marlin 2.0.x)
 
 ## Übersicht
