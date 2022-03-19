@@ -1560,7 +1560,7 @@
  */
 #if ENABLED(KNUTWURST_BLTOUCH)
  #if ENABLED(MK3_X_CARRIAGE)
-  #define NOZZLE_TO_PROBE_OFFSET { 29, -15, -2.3 } //X-Carriage
+  #define NOZZLE_TO_PROBE_OFFSET { 29, -15, -2.25 } //X-Carriage
  #else
   #define NOZZLE_TO_PROBE_OFFSET { -2, -25, -0.4 } //https://www.thingiverse.com/thing:2824005
  #endif
