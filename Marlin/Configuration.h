@@ -100,7 +100,7 @@
 #define KNUTWURST_PRHEAT_NOZZLE_PLA 200
 #define KNUTWURST_PRHEAT_BED_PLA     60
 #define KNUTWURST_PRHEAT_NOZZLE_ABS 240
-#define KNUTWURST_PRHEAT_BED_ABS     90
+#define KNUTWURST_PRHEAT_BED_ABS     80
 
 
 //===========================================================================
@@ -1125,7 +1125,7 @@
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
 
-#if NONE(KNUTWURST_MEGA_EXTRUDER, KNUTWURST_MEGA_S_EXTRUDER, KNUTWURST_MEGA_X_EXTRUDER, KNUTWURST_MEGA_P_EXTRUDER, KNUTWURST_CHIRON_EXTRUDER, KNUTWURST_4MAXP2_EXTRUDER)
+#if NONE(KNUTWURST_MEGA_EXTRUDER, KNUTWURST_MEGA_S_EXTRUDER, KNUTWURST_MEGA_X_EXTRUDER, KNUTWURST_MEGA_P_EXTRUDER, KNUTWURST_CHIRON_EXTRUDER, KNUTWURST_4MAXP2_EXTRUDER, KNUTWURST_EXTRUDER_R3T1)
   #if ENABLED(KNUTWURST_MEGA)
     #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 98 }
   #endif
@@ -1150,6 +1150,10 @@
     #define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 80, 800, 415 }
   #endif
 #else
+  #if ENABLED(KNUTWURST_EXTRUDER_R3T1)
+    #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 294 }
+  #endif
+
   #if ENABLED(KNUTWURST_MEGA_EXTRUDER)
     #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 98 }
   #endif
@@ -1821,9 +1825,19 @@
 #if ENABLED(KNUTWURST_TMC)
   #if ANY(KNUTWURST_MEGA, KNUTWURST_MEGA_S, KNUTWURST_MEGA_X)
     // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-    #define INVERT_X_DIR false // set to true for stock drivers or TMC2208 with reversed connectors
-    #define INVERT_Y_DIR true // set to false for stock drivers or TMC2208 with reversed connectors
-    #if ENABLED(KNUTWURST_TMC_XY_ONLY)
+    #if ENABLED(KNUTWURST_KEEP_X)
+      #define INVERT_X_DIR true // set to true for stock drivers or TMC2208 with reversed connectors
+    #else
+      #define INVERT_X_DIR false // set to true for stock drivers or TMC2208 with reversed connectors
+    #endif
+
+    #if ENABLED(KNUTWURST_KEEP_X)
+      #define INVERT_Y_DIR false // set to true for stock drivers or TMC2208 with reversed connectors
+    #else
+      #define INVERT_Y_DIR true // set to true for stock drivers or TMC2208 with reversed connectors
+    #endif
+
+    #if ENABLED(KNUTWURST_KEEP_Z)
       #define INVERT_Z_DIR false // set to false for stock drivers or TMC2208 with reversed connectors
     #else
       #define INVERT_Z_DIR true // set to false for stock drivers or TMC2208 with reversed connectors
@@ -1834,14 +1848,14 @@
     #if ENABLED(KNUTWURST_BMG)
       #define INVERT_E0_DIR false // set to false for stock drivers or TMC2208 with reversed connectors
     #else
-      #if ENABLED(KNUTWURST_TMC_XY_ONLY)
+      #if ENABLED(KNUTWURST_KEEP_E0)
         #define INVERT_E0_DIR false // set to false for stock drivers or TMC2208 with reversed connectors
       #else
         #define INVERT_E0_DIR true // set to false for stock drivers or TMC2208 with reversed connectors
       #endif
     #endif
 
-    #if ENABLED(KNUTWURST_TMC_XY_ONLY)
+    #if ENABLED(KNUTWURST_KEEP_E1)
       #define INVERT_E1_DIR false // set to false for stock drivers or TMC2208 with reversed connectors
     #else
       #define INVERT_E1_DIR true // set to false for stock drivers or TMC2208 with reversed connectors
